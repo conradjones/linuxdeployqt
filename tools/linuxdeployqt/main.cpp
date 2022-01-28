@@ -27,6 +27,7 @@
 ****************************************************************************/
 #include <QCoreApplication>
 #include <QDir>
+#include <QSet>
 #include <QProcessEnvironment>
 #include "shared.h"
 #include <QRegularExpression>
@@ -541,7 +542,8 @@ int main(int argc, char **argv)
         // Update deploymentInfo.deployedLibraries - the QML imports
         // may have brought in extra libraries as dependencies.
         deploymentInfo.deployedLibraries += findAppLibraries(appDirPath);
-        deploymentInfo.deployedLibraries = deploymentInfo.deployedLibraries.toSet().toList();
+        auto set = QSet<QString>(deploymentInfo.deployedLibraries.begin(), deploymentInfo.deployedLibraries.end());
+        deploymentInfo.deployedLibraries = QList<QString>(set.begin(), set.end());
     }
 
     deploymentInfo.usedModulesMask = 0;
