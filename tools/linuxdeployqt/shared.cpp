@@ -297,14 +297,14 @@ bool copyCopyrightFile(QString libPath){
     arguments << "-S" << libPath;
     QProcess *myProcess = new QProcess();
     myProcess->start(dpkgPath, arguments);
-    myProcess->waitForFinished();
+    myProcess->waitForFinished(-1);
     QString strOut = myProcess->readAllStandardOutput().split(':')[0];
     if(strOut == "") return false;
 
     /* Find out the copyright file in that package */
     arguments << "-L" << strOut;
     myProcess->start(dpkgQueryPath, arguments);
-    myProcess->waitForFinished();
+    myProcess->waitForFinished(-1);
     strOut = myProcess->readAllStandardOutput();
 
      QStringList outputLines = strOut.split("\n", QString::SkipEmptyParts);
