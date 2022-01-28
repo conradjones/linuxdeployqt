@@ -1061,10 +1061,10 @@ DeploymentInfo deployQtLibraries(QList<LibraryInfo> libraries,
     return deploymentInfo;
 }
 
-static QString captureOutput(const QString &command)
+static QString captureOutput(const QString &command, const QStringList& arguments)
 {
     QProcess process;
-    process.start(command, QIODevice::ReadOnly);
+    process.start(command, arguments, QIODevice::ReadOnly);
     process.waitForFinished();
 
     if (process.exitStatus() != QProcess::NormalExit) {
@@ -1126,7 +1126,7 @@ DeploymentInfo deployQtLibraries(const QString &appDirPath, const QStringList &a
        }
 
        LogNormal() << "Using qmake: " << qmakePath;
-       QString output = captureOutput(qmakePath + " -query");
+       QString output = captureOutput(qmakePath , {" -query"});
        LogDebug() << "-query output from qmake:" << output;
 
        QStringList outputLines = output.split("\n", Qt::SkipEmptyParts);
