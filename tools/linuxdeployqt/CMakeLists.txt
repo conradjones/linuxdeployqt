@@ -10,6 +10,7 @@ add_definitions("-DBUILD_DATE=\"${DATE}\"")
 add_definitions("-DBUILD_NUMBER=\"${BUILD_NUMBER}\"")
 
 find_package(Qt6 REQUIRED COMPONENTS Core)
+find_package(Qt6 COMPONENTS Core5Compat REQUIRED)
 
 # update excludelist
 message(STATUS "Updating excludelist...")
@@ -27,4 +28,5 @@ mark_as_advanced(EXCLUDELIST EXCLUDELIST_RESULT)
 add_executable(linuxdeployqt main.cpp shared.cpp)
 target_include_directories(linuxdeployqt PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(linuxdeployqt Qt6::Core)
+target_link_libraries(linuxdeployqt Qt6::Core5Compat)
 target_compile_definitions(linuxdeployqt PRIVATE -DEXCLUDELIST="${EXCLUDELIST}")
