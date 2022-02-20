@@ -775,7 +775,7 @@ QString runPatchelf(QStringList options)
         }
         exit(1);
     }
-    patchelftool.waitForFinished();
+    patchelftool.waitForFinished(-1);
     if (patchelftool.exitCode() != 0) {
         LogError() << "runPatchelf:" << patchelftool.readAllStandardError();
         // LogError() << "runPatchelf:" << patchelftool.readAllStandardOutput();
@@ -937,7 +937,7 @@ void runStrip(const QString &binaryPath)
         }
         // exit(1); // Do not exit because this could be a script that patchelf can't work on
     }
-    patchelfread.waitForFinished();
+    patchelfread.waitForFinished(-1);
 
     if (patchelfread.exitCode() != 0){
         LogError() << "Error reading rpath with patchelf" << QFileInfo(resolvedPath).completeBaseName() << ":" << patchelfread.readAllStandardError();
